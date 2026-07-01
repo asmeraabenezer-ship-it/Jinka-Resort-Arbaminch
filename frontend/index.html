@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jinka Resort | Luxury Redefined</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+Ethiopic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar glassmorphism" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <img src="assets/images/logo2.png" alt="Jinka Resorts Logo" class="logo-img">
+        <span class="logo-text">Arba Minch</span>
+      </a>
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link active" data-translate="nav-home">Home</a></li>
+        <li><a href="#about" class="nav-link" data-translate="nav-about">About</a></li>
+        <li><a href="#rooms" class="nav-link" data-translate="nav-rooms">Rooms</a></li>
+        <li><a href="#dining" class="nav-link" data-translate="nav-dining">Dining</a></li>
+        <li><a href="#gallery" class="nav-link" data-translate="nav-gallery">Gallery</a></li>
+        <li><a href="#location" class="nav-link" data-translate="nav-contact">Contact</a></li>
+        <li><a href="#" class="nav-link login-btn" data-translate="nav-login">Login / Register</a></li>
+        <li><i class="fas fa-moon theme-toggle" id="theme-toggle"></i></li>
+        <li class="lang-switch-item">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="am">አማ</button>
+          </div>
+        </li>
+        <li class="curr-switch-item">
+          <div class="currency-switcher">
+            <button class="curr-btn active" data-curr="ETB">ETB</button>
+            <button class="curr-btn" data-curr="USD">USD</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" id="home">
+    <video autoplay muted loop class="hero-video" poster="https://images.unsplash.com/photo-1542314831-c53cd4b85d85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+      <source src="assets/videos/hero-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="hero-content fade-in-up">
+      <h1 class="hero-title" data-translate="hero-title">Where culture meets <br>world-class hospitality</h1>
+      <p class="hero-subtitle" data-translate="hero-subtitle">Experience the breathtaking city</p>
+      <div class="hero-buttons">
+        <a href="#rooms" class="btn btn-primary" data-translate="btn-book">Book Now</a>
+        <a href="#dining" class="btn btn-secondary" data-translate="btn-order">Order Food</a>
+      </div>
+    </div>
+    
+    <div class="floating-socials">
+      <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section class="about section-padding" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text slide-in-left">
+          <span class="section-subtitle" data-translate="about-subtitle">Welcome to Jinka</span>
+          <h2 class="section-title" data-translate="about-title">A Sanctuary of Elegance</h2>
+          <p data-translate="about-desc">Immerse yourself in a world where luxury meets nature. Jinka Resort offers a perfect blend of modern sophistication and timeless tranquility. Every detail is crafted to provide you with an unforgettable experience.</p>
+          <ul class="features-list">
+            <li><i class="fas fa-check"></i> World-class amenities</li>
+            <li><i class="fas fa-check"></i> Breathtaking scenic views</li>
+            <li><i class="fas fa-check"></i> Exclusive spa & wellness</li>
+            <li><i class="fas fa-check"></i> Gourmet dining experiences</li>
+          </ul>
+          <a href="#" class="btn btn-outline">Discover More</a>
+        </div>
+        <div class="about-image slide-in-right">
+          <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resort Pool">
+          <div class="experience-badge">
+            <span class="years">15+</span>
+            <span class="text">Years of Excellence</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms Section -->
+  <section class="rooms section-padding bg-light" id="rooms">
+    <div class="container">
+      <div class="section-header text-center fade-in-up">
+        <span class="section-subtitle" data-translate="rooms-subtitle">Luxurious Stays</span>
+        <h2 class="section-title" data-translate="rooms-title">Our Exquisite Rooms</h2>
+      </div>
+      
+      <div class="rooms-grid">
+        <!-- Room 1 -->
+        <div class="room-card fade-in-up delay-1">
+          <div class="room-img">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Deluxe Room">
+            <div class="price-tag room-price-display" data-base-price="5000">5,000 ETB/night</div>
+          </div>
+          <div class="room-content">
+            <h3>Deluxe Ocean View</h3>
+            <p>Spacious room with a private balcony overlooking the pristine waters.</p>
+            <div class="room-amenities">
+              <span><i class="fas fa-bed"></i> King Bed</span>
+              <span><i class="fas fa-wifi"></i> Free Wifi</span>
+              <span><i class="fas fa-bath"></i> Bathtub</span>
+            </div>
+            <a href="#" class="btn btn-primary btn-block" onclick="openBookingModal('Deluxe Ocean View', 5000, 'room-id-deluxe-garden')">Book Room</a>
+          </div>
+        </div>
+
+        <!-- Room 2 -->
+        <div class="room-card fade-in-up delay-2">
+          <div class="room-img">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Premium Suite">
+            <div class="price-tag room-price-display" data-base-price="8500">8,500 ETB/night</div>
+          </div>
+          <div class="room-content">
+            <h3>Premium Executive Suite</h3>
+            <p>Ultimate luxury with a separate living area and exclusive lounge access.</p>
+            <div class="room-amenities">
+              <span><i class="fas fa-bed"></i> King Bed</span>
+              <span><i class="fas fa-tv"></i> Smart TV</span>
+              <span><i class="fas fa-glass-martini-alt"></i> Mini Bar</span>
+            </div>
+            <a href="#" class="btn btn-primary btn-block" onclick="openBookingModal('Premium Executive Suite', 8500, 'room-id-presidential-suite')">Book Room</a>
+          </div>
+        </div>
+
+        <!-- Room 3 -->
+        <div class="room-card fade-in-up delay-3">
+          <div class="room-img">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Presidential Villa">
+            <div class="price-tag room-price-display" data-base-price="12000">12,000 ETB/night</div>
+          </div>
+          <div class="room-content">
+            <h3>Presidential Villa</h3>
+            <p>A private haven featuring a personal pool and dedicated butler service.</p>
+            <div class="room-amenities">
+              <span><i class="fas fa-swimming-pool"></i> Pvt Pool</span>
+              <span><i class="fas fa-concierge-bell"></i> Butler</span>
+              <span><i class="fas fa-spa"></i> Jacuzzi</span>
+            </div>
+            <a href="#" class="btn btn-primary btn-block" onclick="openBookingModal('Presidential Villa', 12000, 'room-id-luxury-villa')">Book Room</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="statistics" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in-up delay-1">
+          <i class="fas fa-bed stat-icon"></i>
+          <h3 class="counter" data-target="150">0</h3>
+          <p>Luxury Rooms</p>
+        </div>
+        <div class="stat-item fade-in-up delay-2">
+          <i class="fas fa-users stat-icon"></i>
+          <h3 class="counter" data-target="50000">0</h3>
+          <p>Happy Guests</p>
+        </div>
+        <div class="stat-item fade-in-up delay-3">
+          <i class="fas fa-utensils stat-icon"></i>
+          <h3 class="counter" data-target="5">0</h3>
+          <p>Gourmet Restaurants</p>
+        </div>
+        <div class="stat-item fade-in-up delay-4">
+          <i class="fas fa-award stat-icon"></i>
+          <h3 class="counter" data-target="25">0</h3>
+          <p>Global Awards</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dining Section -->
+  <section class="dining section-padding" id="dining">
+    <div class="container">
+      <div class="section-header text-center fade-in-up">
+        <span class="section-subtitle" data-translate="dining-subtitle">Culinary Excellence</span>
+        <h2 class="section-title" data-translate="dining-title">Restaurant & In-Room Dining</h2>
+        <p data-translate="dining-desc">Order fresh, gourmet food directly to your room or reserve a table.</p>
+      </div>
+
+      <div class="menu-tabs fade-in-up">
+        <button class="tab-btn active" data-filter="all">All</button>
+        <button class="tab-btn" data-filter="breakfast">Breakfast</button>
+        <button class="tab-btn" data-filter="mains">Mains</button>
+        <button class="tab-btn" data-filter="desserts">Desserts</button>
+      </div>
+
+      <div class="menu-grid" id="menu-container">
+        <!-- JS will populate menu items here -->
+      </div>
+      
+      <div class="text-center mt-4 fade-in-up">
+        <a href="#" class="btn btn-primary" id="view-cart-btn"><i class="fas fa-shopping-cart"></i> View Cart (<span id="cart-count">0</span>)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TikTok Section -->
+  <section class="tiktok-section section-padding" id="tiktok">
+    <div class="container">
+      <div class="section-header text-center fade-in-up">
+        <span class="section-subtitle"><i class="fab fa-tiktok"></i> Social Media</span>
+        <h2 class="section-title">Watch Us on TikTok</h2>
+        <p>Follow <strong>@jinkaresorts</strong> on TikTok and experience the magic of Jinka Resort through our videos.</p>
+      </div>
+
+      <div class="tiktok-layout fade-in-up">
+
+        <!-- Profile Banner Card -->
+        <div class="tiktok-profile-card">
+          <div class="tiktok-profile-bg"></div>
+          <div class="tiktok-profile-body">
+            <div class="tiktok-avatar">
+              <i class="fab fa-tiktok"></i>
+            </div>
+            <h3>@jinkaresorts</h3>
+            <p>Jinka Resort · Arba Minch, Ethiopia</p>
+            <p class="tiktok-tagline">✨ Luxury escapes &amp; stunning views<br>🌿 Nature · Comfort · Serenity</p>
+            <a
+              href="https://www.tiktok.com/@jinkaresorts"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn tiktok-follow-btn">
+              <i class="fab fa-tiktok"></i> Follow @jinkaresorts
+            </a>
+            <a
+              href="https://www.tiktok.com/@jinkaresorts"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="tiktok-watch-link">
+              <i class="fas fa-play-circle"></i> Watch all videos on TikTok
+            </a>
+          </div>
+        </div>
+
+        <!-- Embedded TikTok Feed -->
+        <div class="tiktok-embed-area">
+          <!-- TikTok embeds load via TikTok's own JS below -->
+          <blockquote
+            class="tiktok-embed"
+            cite="https://www.tiktok.com/@jinkaresorts"
+            data-unique-id="jinkaresorts"
+            data-embed-type="creator"
+            style="max-width:780px; min-width:288px;">
+            <section>
+              <a
+                target="_blank"
+                href="https://www.tiktok.com/@jinkaresorts"
+                rel="noopener noreferrer">
+                @jinkaresorts
+              </a>
+            </section>
+          </blockquote>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- TikTok embed script -->
+  <script async src="https://www.tiktok.com/embed.js"></script>
+
+  <!-- Map Section -->
+  <section class="map-section" id="location">
+    <div class="container">
+      <div class="section-header text-center fade-in-up">
+        <span class="section-subtitle">Find Us</span>
+        <h2 class="section-title">Our Location</h2>
+        <p>Visit us at Jinka Resort, nestled in the heart of Arba Minch, Ethiopia.</p>
+      </div>
+      <div class="map-wrapper fade-in-up">
+        <!-- Clickable overlay: clicking the map opens Google Maps directly -->
+        <a
+          href="https://www.google.com/maps/place/Jinka+Resort/@6.0344,37.5596,15z/data=!4m6!3m5!1s0x0:0x0!8m2!3d6.0344!4d37.5596!16s%2Fg%2F11c1p3j8q?q=Jinka+Resort+Arba+Minch+Ethiopia"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="map-click-overlay"
+          title="Open in Google Maps"
+          aria-label="Open Jinka Resort location in Google Maps">
+          <span class="map-click-hint"><i class="fas fa-external-link-alt"></i> Open in Google Maps</span>
+        </a>
+        <iframe
+          src="https://maps.google.com/maps?q=Jinka+Resort,+Arba+Minch,+Ethiopia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="420"
+          style="border:0; border-radius: 12px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Jinka Resort Location - Arba Minch, Ethiopia">
+        </iframe>
+        <div class="map-info-card">
+          <div class="map-info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Address</strong>
+              <span>Jinka Resort, Arba Minch, Ethiopia</span>
+            </div>
+          </div>
+          <div class="map-info-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <strong>Phone</strong>
+              <span><a href="tel:+251905993399">+251 90 599 3399</a></span>
+            </div>
+          </div>
+          <div class="map-info-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>Email</strong>
+              <span><a href="mailto:Arbaminchjinkaresort@gmail.com">Arbaminchjinkaresort@gmail.com</a></span>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=Jinka+Resort+Arba+Minch+Ethiopia" target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-2">
+            <i class="fas fa-directions"></i> Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <h3>JINKA <span>Resort</span></h3>
+          <p>Experience the pinnacle of luxury and tranquility. Your perfect getaway awaits.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Follow Us</h3>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@jinkaresorts" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok @jinkaresorts"><i class="fab fa-tiktok"></i></a>
+            <a href="#" aria-label="Twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#rooms">Rooms</a></li>
+            <li><a href="#dining">Dining</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><i class="fas fa-map-marker-alt"></i> Jinka Resort, Arba Minch, Ethiopia</li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+251905993399">+251 90 599 3399</a></li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:Arbaminchjinkaresort@gmail.com">Arbaminchjinkaresort@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Jinka Resort. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="booking-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Book Your Stay</h2>
+      <h4 id="modal-room-name"></h4>
+      <p>Price: <span id="modal-room-price"></span> <span id="modal-currency-label">ETB</span>/night</p>
+      <form id="booking-form">
+        <div class="form-group">
+          <label for="booking-name">Full Name</label>
+          <input type="text" id="booking-name" placeholder="Enter your name" required title="Full Name">
+        </div>
+        <div class="form-group">
+          <label for="booking-email">Email Address</label>
+          <input type="email" id="booking-email" placeholder="Enter your email" required title="Email Address">
+        </div>
+        <div class="form-group">
+          <label for="booking-room-type">Preferred Room</label>
+          <div class="select-wrapper">
+            <select id="booking-room-type" title="Select Room Type">
+              <option value="room-id-deluxe-garden">Deluxe Ocean View</option>
+              <option value="room-id-presidential-suite">Premium Executive Suite</option>
+              <option value="room-id-luxury-villa">Presidential Villa</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="checkin">Check-in Date</label>
+          <input type="date" required id="checkin">
+        </div>
+        <div class="form-group">
+          <label for="checkout">Check-out Date</label>
+          <input type="date" required id="checkout">
+        </div>
+        <div class="form-group">
+          <label for="booking-payment">Payment Method</label>
+          <div class="select-wrapper">
+            <select required id="booking-payment" class="payment-select">
+              <option value="telebirr">Telebirr</option>
+              <option value="cbe">CBE Birr</option>
+              <option value="chapa">Chapa</option>
+              <option value="cash">Pay at Reception</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Auth Modal (Login / Register) -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content auth-modal-content">
+      <span class="close-modal" id="close-auth">&times;</span>
+      
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-login">Login</button>
+        <button class="auth-tab-btn" id="tab-register">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form active">
+        <h2 class="text-center">Welcome Back</h2>
+        <p class="text-center mb-4">Please enter your credentials to access your account.</p>
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form">
+        <h2 class="text-center">Create Account</h2>
+        <p class="text-center mb-4">Join Jinka Resort for exclusive benefits and easier bookings.</p>
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Register Now</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="modal" id="cart-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-cart">&times;</span>
+      <h2>Your Order Cart</h2>
+      <div id="cart-items" class="cart-items-container"></div>
+      <div class="cart-total">
+        <h3>Total: <span id="cart-total-price">0.00</span> ETB</h3>
+      </div>
+      <form id="order-form">
+        <div class="form-group">
+          <label for="delivery-address">Room Number / Address</label>
+          <input type="text" required id="delivery-address" placeholder="e.g. Room 101">
+        </div>
+        <div class="form-group">
+          <label for="order-payment">Payment Method</label>
+          <div class="select-wrapper">
+            <select id="order-payment" title="Select Payment Method">
+              <option value="telebirr">Telebirr</option>
+              <option value="cbe">CBE Birr</option>
+              <option value="chapa">Chapa</option>
+              <option value="cash">Cash on Delivery</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

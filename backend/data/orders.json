@@ -1,0 +1,18 @@
+[
+  {
+    "id": "order-id-1",
+    "user_id": "regular-user-id-54321",
+    "total_amount": 8700,
+    "delivery_address": "Room 104",
+    "status": "pending",
+    "created_at": "2026-06-07T14:15:00.000Z"
+  },
+  {
+    "id": "uuid-1781538768904-468189",
+    "created_at": "2026-06-15T15:52:48.904Z",
+    "user_id": "regular-user-id-54321",
+    "total_amount": 2400,
+    "delivery_address": "101",
+    "status": "preparing"
+  }
+]

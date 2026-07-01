@@ -1,0 +1,26 @@
+[
+  {
+    "id": "admin-user-id-12345",
+    "name": "Super Admin",
+    "email": "admin@jinka.com",
+    "password": "admin123",
+    "role": "superadmin",
+    "created_at": "2026-06-07T14:00:00.000Z"
+  },
+  {
+    "id": "subadmin-user-id-67890",
+    "name": "Sub Admin Manager",
+    "email": "subadmin@jinka.com",
+    "password": "subadmin123",
+    "role": "admin",
+    "created_at": "2026-06-07T14:02:00.000Z"
+  },
+  {
+    "id": "regular-user-id-54321",
+    "name": "Standard Guest",
+    "email": "guest@jinka.com",
+    "password": "guest123",
+    "role": "user",
+    "created_at": "2026-06-07T14:05:00.000Z"
+  }
+]

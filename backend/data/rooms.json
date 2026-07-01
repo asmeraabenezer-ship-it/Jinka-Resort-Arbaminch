@@ -1,0 +1,35 @@
+[
+  {
+    "id": "room-id-luxury-villa",
+    "title": "Royal Luxury Villa",
+    "description": "Exquisite private villa with personal pool, ocean view, and luxury amenities.",
+    "price": 12000,
+    "capacity": 4,
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    "amenities": ["Private Pool", "WiFi", "AC", "Mini Bar", "Sea View"],
+    "isAvailable": true,
+    "created_at": "2026-06-07T14:00:00.000Z"
+  },
+  {
+    "id": "room-id-presidential-suite",
+    "title": "Presidential Ocean Suite",
+    "description": "Spacious penthouse suite overlooking the resort with high-end premium finish.",
+    "price": 8500,
+    "capacity": 2,
+    "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    "amenities": ["WiFi", "AC", "Balcony", "Jacuzzi"],
+    "isAvailable": true,
+    "created_at": "2026-06-07T14:00:00.000Z"
+  },
+  {
+    "id": "room-id-deluxe-garden",
+    "title": "Deluxe Garden Retreat",
+    "description": "Charming garden cottage surrounded by tropical flowers and lush greens.",
+    "price": 5000,
+    "capacity": 2,
+    "image": "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    "amenities": ["WiFi", "AC", "Garden Deck"],
+    "isAvailable": true,
+    "created_at": "2026-06-07T14:00:00.000Z"
+  }
+]

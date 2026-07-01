@@ -1,0 +1,22 @@
+[
+  {
+    "id": "booking-id-1",
+    "user_id": "regular-user-id-54321",
+    "room_id": "room-id-luxury-villa",
+    "check_in": "2026-06-10T14:00:00.000Z",
+    "check_out": "2026-06-15T12:00:00.000Z",
+    "total_price": 60000,
+    "status": "confirmed",
+    "created_at": "2026-06-07T14:10:00.000Z"
+  },
+  {
+    "id": "uuid-1781537461085-761933",
+    "created_at": "2026-06-15T15:31:01.085Z",
+    "user_id": "regular-user-id-54321",
+    "room_id": "room-id-deluxe-garden",
+    "check_in": "2026-06-16",
+    "check_out": "2026-06-18",
+    "total_price": 10000,
+    "status": "confirmed"
+  }
+]
