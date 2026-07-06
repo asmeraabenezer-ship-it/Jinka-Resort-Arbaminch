@@ -2,6 +2,11 @@
 let currentCurrency = localStorage.getItem('selectedCurrency') || 'ETB';
 const EXCHANGE_RATE = 20; // 1 USD = 20 ETB
 
+// API URL Logic
+const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:') 
+  ? 'http://localhost:5000/api' 
+  : '/api';
+
 function formatPriceString(priceInEtb) {
   if (currentCurrency === 'USD') {
     const usd = Math.round(priceInEtb / EXCHANGE_RATE);
@@ -273,10 +278,7 @@ window.addEventListener('click', (e) => {
   if (e.target === cartModal) cartModal.style.display = 'none';
 });
 
-// API URL Logic
-const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:') 
-  ? 'http://localhost:5000/api' 
-  : '/api';
+
 
 // Booking Form Submission
 document.getElementById('booking-form').addEventListener('submit', async (e) => {
@@ -385,7 +387,12 @@ const registerForm = document.getElementById('register-form');
 
 loginBtn?.addEventListener('click', (e) => {
   e.preventDefault();
-  authModal.style.display = 'flex';
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  if (userData) {
+    openDashboardModal();
+  } else {
+    authModal.style.display = 'flex';
+  }
 });
 
 closeAuth?.addEventListener('click', () => {
@@ -409,8 +416,13 @@ tabRegister?.addEventListener('click', () => {
 // Handle Login
 loginForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = document.getElementById('login-email').value;
+  const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
+  const submitBtn = loginForm.querySelector('button[type="submit"]');
+
+  // Disable button during request
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'Signing In...';
 
   try {
     const res = await fetch(`${API_URL}/users/login`, {
@@ -423,14 +435,19 @@ loginForm?.addEventListener('submit', async (e) => {
     if (res.ok) {
       localStorage.setItem('userToken', data.token);
       localStorage.setItem('userData', JSON.stringify(data.user));
-      showToast(`Welcome back, ${data.user.name}!`, 'success');
+      showToast(`Welcome back, ${data.user.name}! 🎉`, 'success');
       authModal.style.display = 'none';
+      loginForm.reset();
       updateUIForUser();
     } else {
-      showToast(data.message || 'Login failed', 'error');
+      showToast(data.message || 'Invalid email or password. Please try again.', 'error');
     }
   } catch (err) {
-    showToast('Connection error. Please try again.', 'error');
+    console.error('Login error:', err);
+    showToast('Cannot connect to server. Please make sure the backend is running.', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerText = 'Sign In';
   }
 });
 
@@ -466,10 +483,137 @@ registerForm?.addEventListener('submit', async (e) => {
 function updateUIForUser() {
   const userData = JSON.parse(localStorage.getItem('userData'));
   if (userData) {
-    loginBtn.innerText = userData.name.split(' ')[0];
+    const firstName = userData.name.split(' ')[0];
+    loginBtn.innerHTML = `<i class="fas fa-user-circle"></i> ${firstName}`;
     loginBtn.classList.add('user-active');
+  } else {
+    const savedLang = localStorage.getItem('selectedLang') || 'en';
+    loginBtn.innerHTML = translations[savedLang]['nav-login'];
+    loginBtn.classList.remove('user-active');
   }
 }
+
+// ===== Dashboard Modal Logic =====
+const dashboardModal = document.getElementById('dashboard-modal');
+const closeDashboard = document.getElementById('close-dashboard');
+const tabDashBookings = document.getElementById('tab-dash-bookings');
+const tabDashOrders = document.getElementById('tab-dash-orders');
+const dashBookingsContent = document.getElementById('dash-bookings-content');
+const dashOrdersContent = document.getElementById('dash-orders-content');
+const dashLogoutBtn = document.getElementById('dash-logout-btn');
+
+function openDashboardModal() {
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  if (!userData) return;
+
+  const dashNameEl = document.getElementById('dash-user-name');
+  const dashEmailEl = document.getElementById('dash-user-email');
+  if (dashNameEl) dashNameEl.innerText = userData.name;
+  if (dashEmailEl) dashEmailEl.innerText = userData.email;
+
+  const currentLang = localStorage.getItem('selectedLang') || 'en';
+  setLanguage(currentLang);
+
+  if (dashboardModal) dashboardModal.style.display = 'flex';
+  loadUserDashboard(userData.id);
+}
+
+async function loadUserDashboard(userId) {
+  const bookingsTbody = document.querySelector('#dash-bookings-table tbody');
+  const ordersTbody = document.querySelector('#dash-orders-table tbody');
+
+  if (bookingsTbody) bookingsTbody.innerHTML = `<tr><td colspan="6" class="text-center">Loading bookings...</td></tr>`;
+  if (ordersTbody) ordersTbody.innerHTML = `<tr><td colspan="5" class="text-center">Loading orders...</td></tr>`;
+
+  try {
+    const [bookingsRes, ordersRes] = await Promise.all([
+      fetch(`${API_URL}/bookings/user/${userId}`),
+      fetch(`${API_URL}/orders/user/${userId}`)
+    ]);
+
+    const bookings = await bookingsRes.json();
+    const orders = await ordersRes.json();
+
+    // Render bookings
+    if (bookingsTbody) {
+      bookingsTbody.innerHTML = '';
+      if (bookings.length === 0) {
+        bookingsTbody.innerHTML = `<tr><td colspan="6" class="text-center">No bookings found yet. Start booking your stay above!</td></tr>`;
+      } else {
+        bookings.forEach(b => {
+          const checkIn = new Date(b.check_in).toLocaleDateString();
+          const checkOut = new Date(b.check_out).toLocaleDateString();
+          const priceStr = formatPriceString(b.total_price);
+          const status = b.status || 'pending';
+          bookingsTbody.innerHTML += `
+            <tr>
+              <td>#${b.id.substring(0, 8)}</td>
+              <td><strong>${b.room?.title || 'Unknown Room'}</strong></td>
+              <td>${checkIn}</td>
+              <td>${checkOut}</td>
+              <td>${priceStr}</td>
+              <td><span class="status-badge status-${status}">${status}</span></td>
+            </tr>
+          `;
+        });
+      }
+    }
+
+    // Render orders
+    if (ordersTbody) {
+      ordersTbody.innerHTML = '';
+      if (orders.length === 0) {
+        ordersTbody.innerHTML = `<tr><td colspan="5" class="text-center">No food orders found yet. Order delicious meals from the dining section!</td></tr>`;
+      } else {
+        orders.forEach(o => {
+          const itemsList = o.order_items?.map(i => `${i.menu_items?.name || 'Item'} (x${i.quantity})`).join(', ') || 'No items';
+          const totalAmountStr = formatPriceString(o.total_amount);
+          const status = o.status || 'pending';
+          ordersTbody.innerHTML += `
+            <tr>
+              <td>#${o.id.substring(0, 8)}</td>
+              <td>${itemsList}</td>
+              <td>Room: <strong>${o.delivery_address || 'N/A'}</strong></td>
+              <td>${totalAmountStr}</td>
+              <td><span class="status-badge status-${status}">${status}</span></td>
+            </tr>
+          `;
+        });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    if (bookingsTbody) bookingsTbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:red;">Error loading bookings.</td></tr>`;
+    if (ordersTbody) ordersTbody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:red;">Error loading orders.</td></tr>`;
+  }
+}
+
+tabDashBookings?.addEventListener('click', () => {
+  tabDashBookings.classList.add('active');
+  tabDashOrders.classList.remove('active');
+  dashBookingsContent?.classList.add('active');
+  dashOrdersContent?.classList.remove('active');
+});
+
+tabDashOrders?.addEventListener('click', () => {
+  tabDashOrders.classList.add('active');
+  tabDashBookings.classList.remove('active');
+  dashOrdersContent?.classList.add('active');
+  dashBookingsContent?.classList.remove('active');
+});
+
+closeDashboard?.addEventListener('click', () => {
+  if (dashboardModal) dashboardModal.style.display = 'none';
+});
+
+dashLogoutBtn?.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.removeItem('userData');
+  localStorage.removeItem('userToken');
+  if (dashboardModal) dashboardModal.style.display = 'none';
+  showToast('Logged out successfully!', 'success');
+  updateUIForUser();
+});
 
 // Initial check
 updateUIForUser();
@@ -478,6 +622,7 @@ window.addEventListener('click', (e) => {
   if (e.target === bookingModal) bookingModal.style.display = 'none';
   if (e.target === cartModal) cartModal.style.display = 'none';
   if (e.target === authModal) authModal.style.display = 'none';
+  if (e.target === dashboardModal) dashboardModal.style.display = 'none';
 });
 
 // ===== Dark Theme Toggle =====
@@ -515,7 +660,20 @@ const translations = {
     'dining-subtitle': 'Culinary Excellence',
     'dining-title': 'Restaurant & In-Room Dining',
     'dining-desc': 'Order fresh, gourmet food directly to your room or reserve a table.',
-    'view-cart': 'View Cart'
+    'view-cart': 'View Cart',
+    'dash-title': 'My Dashboard',
+    'dash-logged-in': 'Logged in as:',
+    'dash-logout': 'Logout',
+    'dash-bookings': 'My Bookings',
+    'dash-orders': 'My Food Orders',
+    'dash-id': 'ID',
+    'dash-room': 'Room',
+    'dash-checkin': 'Check-In',
+    'dash-checkout': 'Check-Out',
+    'dash-total': 'Total Price',
+    'dash-status': 'Status',
+    'dash-items': 'Items Ordered',
+    'dash-delivery': 'Delivery Info'
   },
   am: {
     'nav-home': 'ዋና ገጽ',
@@ -537,7 +695,20 @@ const translations = {
     'dining-subtitle': 'ምርጥ የምግብ ዝግጅት',
     'dining-title': 'ምግብ ቤት እና ክፍል ውስጥ መመገብ',
     'dining-desc': 'ትኩስ እና ጣፋጭ ምግቦችን በቀጥታ ወደ ክፍልዎ ይዘዙ ወይም ጠረጴዛ ያስይዙ።',
-    'view-cart': 'ካርቱን ይመልከቱ'
+    'view-cart': 'ካርቱን ይመልከቱ',
+    'dash-title': 'የእኔ ዳሽቦርድ',
+    'dash-logged-in': 'በዚህ ስም ገብተዋል:',
+    'dash-logout': 'ውጣ',
+    'dash-bookings': 'የእኔ ክፍሎች ምዝገባ',
+    'dash-orders': 'የእኔ የምግብ ትዕዛዞች',
+    'dash-id': 'መለያ ቁጥር',
+    'dash-room': 'ክፍል',
+    'dash-checkin': 'መግቢያ ቀን',
+    'dash-checkout': 'መውጫ ቀን',
+    'dash-total': 'ጠቅላላ ዋጋ',
+    'dash-status': 'ሁኔታ',
+    'dash-items': 'የታዘዙ ምግቦች',
+    'dash-delivery': 'የማድረሻ አድራሻ'
   }
 };
 
@@ -566,6 +737,9 @@ function setLanguage(lang) {
       el.innerHTML = translations[lang][key];
     }
   });
+
+  // Re-apply user UI to keep/translate state correctly
+  updateUIForUser();
 }
 
 // Set up language switcher events on load

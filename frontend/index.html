@@ -462,6 +462,12 @@
           <input type="password" id="login-password" placeholder="••••••••" required>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="demo-login-hint">
+          <span>Testing? Use:</span>
+          <button type="button" class="demo-fill-btn" onclick="document.getElementById('login-email').value='guest@jinka.com'; document.getElementById('login-password').value='guest123';">
+            <i class="fas fa-user"></i> Auto-fill Guest Account
+          </button>
+        </div>
       </form>
 
       <!-- Register Form -->
@@ -512,6 +518,73 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Place Order</button>
       </form>
+    </div>
+  </div>
+
+  <!-- User Dashboard Modal -->
+  <div class="modal" id="dashboard-modal">
+    <div class="modal-content dashboard-modal-content">
+      <span class="close-modal" id="close-dashboard">&times;</span>
+      
+      <div class="dashboard-header">
+        <h2 data-translate="dash-title">My Dashboard</h2>
+        <div class="user-info-section">
+          <div class="user-meta-details">
+            <span class="user-meta-label" data-translate="dash-logged-in">Logged in as:</span>
+            <strong id="dash-user-name">...</strong>
+            <div id="dash-user-email" class="user-email-text">...</div>
+          </div>
+          <button class="btn btn-outline btn-sm logout-action-btn" id="dash-logout-btn">
+            <i class="fas fa-sign-out-alt"></i> <span data-translate="dash-logout">Logout</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-tabs">
+        <button class="dash-tab-btn active" id="tab-dash-bookings" data-translate="dash-bookings">My Bookings</button>
+        <button class="dash-tab-btn" id="tab-dash-orders" data-translate="dash-orders">My Food Orders</button>
+      </div>
+
+      <!-- Bookings Content -->
+      <div id="dash-bookings-content" class="dash-tab-content active">
+        <div class="table-container text-left">
+          <table class="dash-table" id="dash-bookings-table">
+            <thead>
+              <tr>
+                <th data-translate="dash-id">Booking ID</th>
+                <th data-translate="dash-room">Room</th>
+                <th data-translate="dash-checkin">Check-In</th>
+                <th data-translate="dash-checkout">Check-Out</th>
+                <th data-translate="dash-total">Total Price</th>
+                <th data-translate="dash-status">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populate dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Food Orders Content -->
+      <div id="dash-orders-content" class="dash-tab-content">
+        <div class="table-container text-left">
+          <table class="dash-table" id="dash-orders-table">
+            <thead>
+              <tr>
+                <th data-translate="dash-id">Order ID</th>
+                <th data-translate="dash-items">Items Ordered</th>
+                <th data-translate="dash-delivery">Delivery Info</th>
+                <th data-translate="dash-total">Total Amount</th>
+                <th data-translate="dash-status">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populate dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 

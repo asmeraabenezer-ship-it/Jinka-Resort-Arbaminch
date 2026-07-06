@@ -4,7 +4,7 @@
     "user_id": "regular-user-id-54321",
     "total_amount": 8700,
     "delivery_address": "Room 104",
-    "status": "pending",
+    "status": "delivered",
     "created_at": "2026-06-07T14:15:00.000Z"
   },
   {
@@ -13,6 +13,20 @@
     "user_id": "regular-user-id-54321",
     "total_amount": 2400,
     "delivery_address": "101",
-    "status": "preparing"
+    "status": "delivered"
+  },
+  {
+    "id": "uuid-1783375444148-496366",
+    "created_at": "2026-07-06T22:04:04.148Z",
+    "user_id": "regular-user-id-54321",
+    "total_amount": 2400,
+    "delivery_address": "101"
+  },
+  {
+    "id": "uuid-1783378619829-914694",
+    "created_at": "2026-07-06T22:56:59.829Z",
+    "user_id": "regular-user-id-54321",
+    "total_amount": 2400,
+    "delivery_address": "102"
   }
 ]

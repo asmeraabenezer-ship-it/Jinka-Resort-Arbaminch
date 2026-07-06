@@ -54,5 +54,29 @@
     "target": "MENU",
     "details": "Added menu item: pasta",
     "admin_id": null
+  },
+  {
+    "id": "uuid-1783375396012-123493",
+    "created_at": "2026-07-06T22:03:16.012Z",
+    "action": "UPDATE",
+    "target": "BOOKING",
+    "details": "Updated booking status: confirmed",
+    "admin_id": null
+  },
+  {
+    "id": "uuid-1783375463192-457316",
+    "created_at": "2026-07-06T22:04:23.192Z",
+    "action": "UPDATE",
+    "target": "ORDER",
+    "details": "Updated order status: delivered",
+    "admin_id": null
+  },
+  {
+    "id": "uuid-1783375482965-159679",
+    "created_at": "2026-07-06T22:04:42.965Z",
+    "action": "UPDATE",
+    "target": "ORDER",
+    "details": "Updated order status: delivered",
+    "admin_id": null
   }
 ]
