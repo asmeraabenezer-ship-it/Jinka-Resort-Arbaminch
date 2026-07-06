@@ -7,10 +7,30 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// Middleware - Allow Vercel frontend + local dev
+const allowedOrigins = [
+  'http://localhost:5000',
+  'http://localhost:3000',
+  'http://127.0.0.1:5000',
+  /\.vercel\.app$/,   // any Vercel preview/production URL
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    const allowed = allowedOrigins.some(o =>
+      typeof o === 'string' ? o === origin : o.test(origin)
+    );
+    if (allowed) return callback(null, true);
+    callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 const path = require('path');
 

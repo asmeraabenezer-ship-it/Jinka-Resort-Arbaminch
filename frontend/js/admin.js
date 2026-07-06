@@ -1,7 +1,11 @@
 // ===== Admin Auth & Dashboard Logic =====
+// On local: uses localhost:5000
+// On production (Vercel): uses the Render-hosted backend URL
+const RENDER_API_URL = 'https://jinka-resort-api.onrender.com/api'; // ← Your Render URL
 const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:') 
   ? 'http://localhost:5000/api' 
-  : '/api';
+  : RENDER_API_URL;
+
 
 // Handle Login
 document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
