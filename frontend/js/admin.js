@@ -5,7 +5,43 @@ const RENDER_API_URL = 'https://jinkaresort-com.onrender.com/api';
 const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:') 
   ? 'http://localhost:5000/api' 
   : RENDER_API_URL;
+// ===== Toast Notification System =====
+function showToast(message, type = 'info') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
 
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+
+  let iconClass = 'fa-info-circle';
+  if (type === 'success') iconClass = 'fa-check-circle';
+  if (type === 'error') iconClass = 'fa-exclamation-circle';
+
+  toast.innerHTML = `
+    <div class="toast-icon"><i class="fas ${iconClass}"></i></div>
+    <div class="toast-message">${message}</div>
+  `;
+
+  container.appendChild(toast);
+
+  // Trigger Reflow to enable CSS transition
+  toast.offsetHeight;
+
+  // Add show class
+  toast.classList.add('show');
+
+  // Auto remove after 4 seconds
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.addEventListener('transitionend', () => {
+      toast.remove();
+    });
+  }, 4000);
+}
 
 // Handle Login
 document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
@@ -29,12 +65,13 @@ document.getElementById('admin-login-form').addEventListener('submit', async (e)
       document.querySelector('.admin-layout').style.display = 'flex';
       applyRolePermissions(data.user.role);
       loadDashboardStats();
+      showToast(`Welcome back, ${data.user.name}!`, 'success');
     } else {
-      alert(data.message || 'Access Denied: Admin Authority Required');
+      showToast(data.message || 'Access Denied: Admin Authority Required', 'error');
     }
   } catch (err) {
     console.error('Login error details:', err);
-    alert('Authority Server Error: ' + err.message + '\n\nMake sure the backend server is running on port 5000.\nAPI URL: ' + API_URL);
+    showToast('Authority Server Error. Make sure backend is online.', 'error');
   }
 });
 
@@ -139,13 +176,13 @@ async function deleteUser(id) {
   try {
     await fetch(`${API_URL}/admin/users/${id}`, { method: 'DELETE' });
     loadUsers();
-  } catch (err) { alert('Failed to delete user'); }
+  } catch (err) { showToast('Failed to delete user', 'error'); }
 }
 
 // Settings Form
 document.getElementById('settings-form')?.addEventListener('submit', (e) => {
   e.preventDefault();
-  alert('System Settings updated successfully!');
+  showToast('System Settings updated successfully!', 'success');
 });
 
 function openAddAdminModal() {
@@ -194,7 +231,7 @@ function openAddAdminModal() {
       });
       modal.style.display = 'none';
       loadUsers();
-    } catch (err) { alert('Failed to create authority user'); }
+    } catch (err) { showToast('Failed to create authority user', 'error'); }
   };
 }
 
@@ -467,24 +504,28 @@ async function loadOrders() {
 // Status Updates
 async function updateBookingStatus(id, status) {
   try {
-    await fetch(`${API_URL}/admin/bookings/${id}`, {
+    const res = await fetch(`${API_URL}/admin/bookings/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status })
     });
+    if (!res.ok) throw new Error();
+    showToast(`Booking status updated to ${status}!`, 'success');
     loadBookings();
-  } catch (err) { alert('Update failed'); }
+  } catch (err) { showToast('Update booking failed', 'error'); }
 }
 
 async function updateOrderStatus(id, status) {
   try {
-    await fetch(`${API_URL}/admin/orders/${id}`, {
+    const res = await fetch(`${API_URL}/admin/orders/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status })
     });
+    if (!res.ok) throw new Error();
+    showToast(`Order status updated to ${status}!`, 'success');
     loadOrders();
-  } catch (err) { alert('Update failed'); }
+  } catch (err) { showToast('Update order failed', 'error'); }
 }
 
 // CRUD Operations (Placeholders for demonstration)
@@ -501,6 +542,7 @@ async function uploadImage(file) {
     return data.url;
   } catch (err) {
     console.error('Upload failed:', err);
+    showToast('Image upload failed. Size limit 5MB.', 'error');
     return null;
   }
 }
@@ -537,7 +579,7 @@ function openAddRoomModal() {
     const imageUrl = await uploadImage(file);
     
     if (!imageUrl) {
-      alert('Image upload failed');
+      // toast notification is already shown inside uploadImage
       return;
     }
 
@@ -549,14 +591,16 @@ function openAddRoomModal() {
       capacity: 2
     };
     try {
-      await fetch(`${API_URL}/admin/rooms`, {
+      const res = await fetch(`${API_URL}/admin/rooms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      if (!res.ok) throw new Error();
+      showToast('Room created successfully! 🛏️', 'success');
       modal.style.display = 'none';
       loadRooms();
-    } catch (err) { alert('Failed to create room'); }
+    } catch (err) { showToast('Failed to create room', 'error'); }
   };
 }
 
@@ -601,7 +645,7 @@ function openAddMenuModal() {
     const imageUrl = await uploadImage(file);
     
     if (!imageUrl) {
-      alert('Image upload failed');
+      // toast is already displayed inside uploadImage
       return;
     }
 
@@ -613,14 +657,16 @@ function openAddMenuModal() {
       image: imageUrl
     };
     try {
-      await fetch(`${API_URL}/admin/menu`, {
+      const res = await fetch(`${API_URL}/admin/menu`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      if (!res.ok) throw new Error();
+      showToast('Menu item added successfully! 🍔', 'success');
       modal.style.display = 'none';
       loadMenu();
-    } catch (err) { alert('Failed to add menu item'); }
+    } catch (err) { showToast('Failed to add menu item', 'error'); }
   };
 }
 
@@ -667,7 +713,6 @@ async function editRoom(id) {
         if (uploadedUrl) {
           imageUrl = uploadedUrl;
         } else {
-          alert('Image upload failed');
           return;
         }
       }
@@ -686,12 +731,13 @@ async function editRoom(id) {
           body: JSON.stringify(data)
         });
         if (!updateRes.ok) throw new Error('Update failed');
+        showToast('Room updated successfully! 🛏️', 'success');
         modal.style.display = 'none';
         loadRooms();
-      } catch (err) { alert('Failed to update room'); }
+      } catch (err) { showToast('Failed to update room', 'error'); }
     };
   } catch (err) {
-    alert('Failed to load room details');
+    showToast('Failed to load room details', 'error');
   }
 }
 
@@ -703,9 +749,10 @@ async function deleteRoom(id) {
       method: 'DELETE'
     });
     if (!res.ok) throw new Error('Delete failed');
+    showToast('Room deleted successfully', 'success');
     loadRooms();
   } catch (err) {
-    alert('Failed to delete room');
+    showToast('Failed to delete room', 'error');
   }
 }
 
@@ -761,7 +808,6 @@ async function editMenuItem(id) {
         if (uploadedUrl) {
           imageUrl = uploadedUrl;
         } else {
-          alert('Image upload failed');
           return;
         }
       }
@@ -780,12 +826,13 @@ async function editMenuItem(id) {
           body: JSON.stringify(data)
         });
         if (!updateRes.ok) throw new Error('Update failed');
+        showToast('Menu item updated successfully! 🍔', 'success');
         modal.style.display = 'none';
         loadMenu();
-      } catch (err) { alert('Failed to update menu item'); }
+      } catch (err) { showToast('Failed to update menu item', 'error'); }
     };
   } catch (err) {
-    alert('Failed to load menu item details');
+    showToast('Failed to load menu item details', 'error');
   }
 }
 
@@ -797,9 +844,10 @@ async function deleteMenuItem(id) {
       method: 'DELETE'
     });
     if (!res.ok) throw new Error('Delete failed');
+    showToast('Menu item deleted successfully', 'success');
     loadMenu();
   } catch (err) {
-    alert('Failed to delete menu item');
+    showToast('Failed to delete menu item', 'error');
   }
 }
 
