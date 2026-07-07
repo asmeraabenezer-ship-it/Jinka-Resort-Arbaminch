@@ -218,6 +218,17 @@ const cartModal = document.getElementById('cart-modal');
 const closeBtns = document.querySelectorAll('.close-modal');
 
 function openBookingModal(roomName, price, roomId) {
+  // ===== LOGIN GATE: Must be logged in to book =====
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  if (!userData) {
+    showToast('Please log in to book a room.', 'error');
+    // Open auth modal after short delay so toast is visible
+    setTimeout(() => {
+      if (authModal) authModal.style.display = 'flex';
+    }, 600);
+    return;
+  }
+
   document.getElementById('modal-room-name').innerText = roomName;
   
   const roomSelect = document.getElementById('booking-room-type');
@@ -287,6 +298,15 @@ window.addEventListener('click', (e) => {
 // Booking Form Submission
 document.getElementById('booking-form').addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  // ===== LOGIN GATE =====
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  if (!userData) {
+    bookingModal.style.display = 'none';
+    showToast('Please log in first to complete your booking.', 'error');
+    setTimeout(() => { if (authModal) authModal.style.display = 'flex'; }, 600);
+    return;
+  }
   
   const roomId = document.getElementById('booking-room-type').value;
   const checkinStr = document.getElementById('checkin').value;
@@ -305,11 +325,8 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
   const pricePerNight = roomPrices[roomId] || 5000;
   const totalPrice = pricePerNight * diffDays;
 
-  const userData = JSON.parse(localStorage.getItem('userData'));
-  const userId = userData ? userData.id : 'regular-user-id-54321';
-
   const bookingData = {
-    user: userId,
+    user: userData.id,
     room: roomId,
     checkIn: checkinStr,
     checkOut: checkoutStr,
@@ -324,7 +341,7 @@ document.getElementById('booking-form').addEventListener('submit', async (e) => 
     });
 
     if (res.ok) {
-      showToast('Booking request sent successfully! Our team will contact you.', 'success');
+      showToast('Booking request sent! Check your dashboard for status updates.', 'success');
       bookingModal.style.display = 'none';
       document.getElementById('booking-form').reset();
     } else {
@@ -345,13 +362,19 @@ document.getElementById('order-form').addEventListener('submit', async (e) => {
     return;
   }
 
+  // ===== LOGIN GATE =====
   const userData = JSON.parse(localStorage.getItem('userData'));
-  const userId = userData ? userData.id : 'regular-user-id-54321';
+  if (!userData) {
+    cartModal.style.display = 'none';
+    showToast('Please log in to place your food order.', 'error');
+    setTimeout(() => { if (authModal) authModal.style.display = 'flex'; }, 600);
+    return;
+  }
 
   const orderData = {
-    user: userId,
+    user: userData.id,
     items: cart.map(item => ({
-      menuItem: item.id, // Ensure your menu items have real UUIDs from DB
+      menuItem: item.id,
       quantity: 1,
       price: item.price
     })),
@@ -367,7 +390,7 @@ document.getElementById('order-form').addEventListener('submit', async (e) => {
     });
 
     if (res.ok) {
-      showToast('Order placed successfully! It will be delivered shortly.', 'success');
+      showToast('Order placed! Check your dashboard to track delivery status.', 'success');
       cart = [];
       document.getElementById('cart-count').innerText = '0';
       cartModal.style.display = 'none';
